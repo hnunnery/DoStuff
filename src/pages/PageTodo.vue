@@ -2,6 +2,7 @@
   <q-page class="q-pa-md">
     <div class="row q-mb-lg">
       <search />
+      <sort />
     </div>
     <p
       v-if="
@@ -40,6 +41,7 @@ import TasksCompleted from "components/Tasks/TasksCompleted.vue";
 import NoTasks from "components/Tasks/NoTasks.vue";
 import AddTask from "components/Tasks/Modals/AddTask.vue";
 import Search from "components/Tasks/Tools/Search.vue";
+import Sort from "components/Tasks/Tools/Sort.vue";
 
 export default {
   components: {
@@ -47,7 +49,8 @@ export default {
     TasksCompleted,
     NoTasks,
     AddTask,
-    Search
+    Search,
+    Sort
   },
   data() {
     return {
