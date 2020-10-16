@@ -26,12 +26,12 @@
     <q-drawer
       v-model="leftDrawerOpen"
       :breakpoint="767"
-      width="200"
+      :width="200"
       show-if-above
       bordered
       content-class="bg-primary"
     >
-      <q-list dark class="q-pt-md">
+      <q-list dark class="q-pt-md q-pl-md">
         <q-item
           v-for="nav in navs"
           :key="nav.label"
