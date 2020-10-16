@@ -21,6 +21,42 @@ const state = {
       dueDate: "2019/05/13",
       dueTime: "16:30"
     },
+    'ID4': {
+      name: "Go to Shop",
+      completed: false,
+      dueDate: "2019/05/14",
+      dueTime: "18:30"
+    },
+    'ID5': {
+      name: "Eat Lunch",
+      completed: false,
+      dueDate: "2019/05/12",
+      dueTime: "14:30"
+    },
+    'ID6': {
+      name: "Brush Teeth",
+      completed: true,
+      dueDate: "2019/05/13",
+      dueTime: "16:30"
+    },
+    'ID7': {
+      name: "Go to Shop",
+      completed: false,
+      dueDate: "2019/05/14",
+      dueTime: "18:30"
+    },
+    'ID8': {
+      name: "Eat Lunch",
+      completed: false,
+      dueDate: "2019/05/12",
+      dueTime: "14:30"
+    },
+    'ID9': {
+      name: "Brush Teeth",
+      completed: true,
+      dueDate: "2019/05/13",
+      dueTime: "16:30"
+    },
   },
   search: '',
   sort: 'dueDate'
