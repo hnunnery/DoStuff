@@ -13,18 +13,15 @@
         No search results.
       </p>
 
-      <q-scroll-area class="q-scroll-area-tasks">
-        <no-tasks v-if="!Object.keys(tasksTodo).length && !search" />
-        <tasks-todo
-          v-if="Object.keys(tasksTodo).length"
-          :tasksTodo="tasksTodo"
-        />
-        <tasks-completed
-          :tasksCompleted="tasksCompleted"
-          v-if="Object.keys(tasksCompleted).length"
-          class="q-mb-xl"
-        />
-      </q-scroll-area>
+      <!-- <q-scroll-area class="q-scroll-area-tasks"> -->
+      <no-tasks v-if="!Object.keys(tasksTodo).length && !search" />
+      <tasks-todo v-if="Object.keys(tasksTodo).length" :tasksTodo="tasksTodo" />
+      <tasks-completed
+        :tasksCompleted="tasksCompleted"
+        v-if="Object.keys(tasksCompleted).length"
+        class="q-mb-xl"
+      />
+      <!-- </q-scroll-area> -->
 
       <div class="absolute-bottom-right text-center q-mb-lg q-mr-lg">
         <q-btn

@@ -6,11 +6,14 @@
           DoStuff
         </q-toolbar-title>
 
-        <div>Quasar</div>
+        <div>
+          <q-btn flat v-if="!loggedIn" to="/auth">Login</q-btn>
+          <q-btn flat v-else to="/auth" @click="logoutUser">Logout</q-btn>
+        </div>
       </q-toolbar>
     </q-header>
 
-    <q-footer>
+    <!-- <q-footer>
       <q-tabs>
         <q-route-tab
           v-for="nav in navs"
@@ -21,9 +24,9 @@
           exact
         />
       </q-tabs>
-    </q-footer>
+    </q-footer> -->
 
-    <q-drawer
+    <!-- <q-drawer
       v-model="leftDrawerOpen"
       :breakpoint="767"
       :width="200"
@@ -50,7 +53,7 @@
           </q-item-section>
         </q-item>
       </q-list>
-    </q-drawer>
+    </q-drawer> -->
 
     <q-page-container>
       <router-view />
@@ -59,9 +62,10 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
+
 export default {
   name: "MainLayout",
-
   data() {
     return {
       leftDrawerOpen: false,
@@ -78,6 +82,12 @@ export default {
         }
       ]
     };
+  },
+  computed: {
+    ...mapState("auth", ["loggedIn"])
+  },
+  methods: {
+    ...mapActions("auth", ["logoutUser"])
   }
 };
 </script>

@@ -1,62 +1,27 @@
 import Vue from 'vue'
 import { uid } from 'quasar'
+import { firebaseDb, firebaseAuth } from 'boot/firebase'
 
 const state = {
   tasks: {
-    'ID1': {
-      name: "Go to Shop",
-      completed: false,
-      dueDate: "2019/05/14",
-      dueTime: "18:30"
-    },
-    'ID2': {
-      name: "Eat Lunch",
-      completed: false,
-      dueDate: "2019/05/12",
-      dueTime: "14:30"
-    },
-    'ID3': {
-      name: "Brush Teeth",
-      completed: true,
-      dueDate: "2019/05/13",
-      dueTime: "16:30"
-    },
-    'ID4': {
-      name: "Go to Shop",
-      completed: false,
-      dueDate: "2019/05/14",
-      dueTime: "18:30"
-    },
-    'ID5': {
-      name: "Eat Lunch",
-      completed: false,
-      dueDate: "2019/05/12",
-      dueTime: "14:30"
-    },
-    'ID6': {
-      name: "Brush Teeth",
-      completed: true,
-      dueDate: "2019/05/13",
-      dueTime: "16:30"
-    },
-    'ID7': {
-      name: "Go to Shop",
-      completed: false,
-      dueDate: "2019/05/14",
-      dueTime: "18:30"
-    },
-    'ID8': {
-      name: "Eat Lunch",
-      completed: false,
-      dueDate: "2019/05/12",
-      dueTime: "14:30"
-    },
-    'ID9': {
-      name: "Brush Teeth",
-      completed: true,
-      dueDate: "2019/05/13",
-      dueTime: "16:30"
-    },
+    // 'ID1': {
+    //   name: "Go to Shop",
+    //   completed: false,
+    //   dueDate: "2019/05/14",
+    //   dueTime: "18:30"
+    // },
+    // 'ID2': {
+    //   name: "Eat Lunch",
+    //   completed: false,
+    //   dueDate: "2019/05/12",
+    //   dueTime: "14:30"
+    // },
+    // 'ID3': {
+    //   name: "Brush Teeth",
+    //   completed: false,
+    //   dueDate: "2019/05/13",
+    //   dueTime: "16:30"
+    // },
   },
   search: '',
   sort: 'dueDate'
@@ -100,6 +65,41 @@ const actions = {
   },
   setSort({ commit }, value) {
     commit('setSort', value)
+  },
+  fbReadData({ commit }) {
+    let userId = firebaseAuth.currentUser.uid
+    let userTasks = firebaseDb.ref('tasks/' + userId)
+
+    // child added
+    userTasks.on('child_added', snapshot => {
+      let task = snapshot.val()
+
+      let payload = {
+        id: snapshot.key,
+        task: task
+      }
+
+      commit('addTask', payload)
+    })
+
+    // child changed
+    userTasks.on('child_changed', snapshot => {
+      let task = snapshot.val()
+
+      let payload = {
+        id: snapshot.key,
+        updates: task
+      }
+
+      commit('updateTask', payload)
+    })
+
+    // child removed
+    userTasks.on('child_removed', snapshot => {
+      let taskId = snapshot.key
+
+      commit('deleteTask', taskId)
+    })
   }
 }
 

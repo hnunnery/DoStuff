@@ -15,7 +15,7 @@
       </q-item-label>
     </q-item-section>
 
-    <q-item-section side v-if="task.dueDate">
+    <q-item-section side v-if="taskDueDate">
       <q-icon name="event" size="20px" class="q-mr-xs" />
     </q-item-section>
 
@@ -23,10 +23,10 @@
       <div class="row">
         <div class="column">
           <q-item-label class="row justify-end" caption>{{
-            task.dueDate | niceDate
+            taskDueDate
           }}</q-item-label>
           <q-item-label class="row justify-end" caption>{{
-            task.dueTime
+            taskDueTime
           }}</q-item-label>
         </div>
       </div>
@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { date } from "quasar";
 const { addToDate } = date;
 import EditTask from "components/Tasks/Modals/EditTask.vue";
@@ -74,6 +74,17 @@ export default {
     return {
       showEditTask: false
     };
+  },
+  computed: {
+    taskDueDate() {
+      return date.formatDate(this.task.dueDate, "MMM D");
+    },
+    taskDueTime() {
+      return date.formatDate(
+        this.task.dueDate + " " + this.task.dueTime,
+        "h:mmA"
+      );
+    }
   },
   methods: {
     ...mapActions("tasks", ["updateTask", "deleteTask"]),
