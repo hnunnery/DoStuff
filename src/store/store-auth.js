@@ -44,12 +44,13 @@ const actions = {
         LocalStorage.set('loggedIn', true)
         this.$router.push('/').catch(err => {})
         dispatch('tasks/fbReadData', null, { root: true })
-        }
-        else {
+      }
+      else {
+        commit('tasks/setTasksDownloaded', false, { root: true })
         commit('setLoggedIn', false)
         LocalStorage.set('loggedIn', false)
         this.$router.replace('/auth').catch(err => {})
-        }
+      }
     })
 }
 }
